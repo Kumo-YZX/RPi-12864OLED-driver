@@ -1,2 +1,2 @@
 # RPi-12864OLED-driver
-This Python program runs on Raspberry Pi and uses its GPIOs to control an OLED(SSD1306) screen.
+Display pictures on your OLED12864 screen(SSD1306-SPI version) with RaspberryPi and Python!
