@@ -32,7 +32,7 @@ class Oled(object):
 	def setPos(self, x, y):
 		self.writeByte(0xb0+y, self.oledCmd)
 		self.writeByte(((x&0xf0)>>4)|0x10, self.oledCmd)
-		self.writeByte((x&0x0f)|0x01, self.oledCmd)
+		self.writeByte((x&0x0f), self.oledCmd)
 
 	def clearAll(self):
 		for i in range(8):
@@ -55,35 +55,9 @@ class Oled(object):
 		GPIO.output(self.rstPin, 0)
 		time.sleep(0.2)
 		GPIO.output(self.rstPin, 1)
-		self.writeByte(0xAE, self.oledCmd)
-		self.writeByte(0x00, self.oledCmd)
-		self.writeByte(0x10, self.oledCmd)
-		self.writeByte(0x40, self.oledCmd)
-		self.writeByte(0x81, self.oledCmd)
-		self.writeByte(0xCF, self.oledCmd)
-		self.writeByte(0xA1, self.oledCmd)
-		self.writeByte(0xC8, self.oledCmd)
-		self.writeByte(0xA6, self.oledCmd)
-		self.writeByte(0xA8, self.oledCmd)
-		self.writeByte(0x3f, self.oledCmd)
-		self.writeByte(0xD3, self.oledCmd)
-		self.writeByte(0x00, self.oledCmd)
-		self.writeByte(0xd5, self.oledCmd)
-		self.writeByte(0x80, self.oledCmd)
-		self.writeByte(0xD9, self.oledCmd)
-		self.writeByte(0xF1, self.oledCmd)
-		self.writeByte(0xDA, self.oledCmd)
-		self.writeByte(0x12, self.oledCmd)
-		self.writeByte(0xDB, self.oledCmd)
-		self.writeByte(0x40, self.oledCmd)
-		self.writeByte(0x20, self.oledCmd)
-		self.writeByte(0x02, self.oledCmd)
-		self.writeByte(0x8D, self.oledCmd)
-		self.writeByte(0x14, self.oledCmd)
-		self.writeByte(0xA4, self.oledCmd)
-		self.writeByte(0xA6, self.oledCmd)
-		self.writeByte(0xAF, self.oledCmd)
-
-		self.writeByte(0xAF, self.oledCmd)
+		initCode =[0xAE,0x00,0x10,0x40,0x81,0xCF,0xA1,0xC8,0xA6,0xA8,0x3F,0XD3,0x00,0xD5,0x80,
+				   0xD9,0xF1,0xDA,0x12,0xDB,0x40,0x20,0x02,0x8D,0x14,0xA4,0xA6,0xAF,0xAF]
+		for every in initCode:
+			self.writeByte(every, self.oledCmd)
 		self.clearAll()
 		self.setPos(0, 0)
