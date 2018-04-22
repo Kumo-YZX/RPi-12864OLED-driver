@@ -12,12 +12,17 @@ def display():
     myScreen = Oled(csPin, dcPin, sdinPin, sclkPin, rstPin)
     myScreen.screenInit()
     myScreen.clearAll()
-    if len(sys.argv)>1 and str.upper(sys.argv[1]) =='IMAGE':
-        myScreen.displayImage(fileName=sys.argv[2] if len(sys.argv)>2 else 'git.png')
-    elif len(sys.argv)>1 and str.upper(sys.argv[1]) =='CHN':
-        myScreen.displayChn(chnStr =sys.argv[2].decode('utf8') if len(sys.argv)>2 else u'\u6837\u672C')
-    else:
-        myScreen.displayAsc(ascStr=sys.argv[1] if len(sys.argv)>1 else 'example')
+    lenCommand =len(sys.argv)
+    for i in range(1,lenCommand,2):
+        if str.upper(sys.argv[i]) =='IMAGE':
+            myScreen.displayImage(fileName=sys.argv[i+1] if lenCommand>i+1 else 'git.png')
+        elif str.upper(sys.argv[i]) =='CHN':
+            myScreen.displayChn(chnStr =sys.argv[i+1].decode('utf8') if lenCommand>i+1 else u'\u6837\u672C')
+        elif str.upper(sys.argv[i]) =='ASC':
+            myScreen.displayAsc(ascStr=sys.argv[i+1] if lenCommand>i+1 else 'example')
+        else:
+            return 0
+    return 1
 
 if __name__ == "__main__":
     display()
